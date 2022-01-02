@@ -11,6 +11,8 @@
 7단계 new_id의 길이가 2자 이하라면, new_id의 마지막 문자를 new_id의 길이가 3이 될 때까지 반복해서 끝에 붙입니다.
 """
 
+#Var_1
+"""
 def solution(new_id):
     answer = ''
     Sol = ''
@@ -18,6 +20,7 @@ def solution(new_id):
     # 1단계 소문자로 변형   self.lower() -> 문자열을 소문자로 변환해 반환하는 메소드 (이 때 원형을 바꾸는 것이 아님을 주의)
     answer = new_id.lower()
     print('1단계 결과 : ', answer)
+    
     # 2단계
 
     for Value in answer:
@@ -82,49 +85,42 @@ solution(id)
 #print('inp : ', id)
 #print('outp : ', solution(id))
 
+"""
 
-
+# Val_2
 
 def solution(new_id):
     answer = ''
-    Sol = ''
-    use_list = '-_.'
-    # 1단계 소문자로 변형   self.lower() -> 문자열을 소문자로 변환해 반환하는 메소드 (이 때 원형을 바꾸는 것이 아님을 주의)
-    answer = new_id.lower()
-    # 2단계
-    for Value in answer:
-        if Value == '.' or Value == '-' or Value == '_' or Value.islower() or Value.isdigit():
-            Sol += Value
-    
-    #3단계
-    while '..' in Sol:
-        Sol = Sol.replace('..','.')
 
-    #4단계 처음 혹은 끝이 .으로 시작하면 삭제
-    if Sol == '' :
-        pass
-    
-    if Sol[0] == '.' :
-        Sol = Sol[1:]
-
-    if Sol[-1] == '.' :
-        Sol = Sol[:-1]
-
-    # 5단계
-    Sol = 'a' if Sol == '' else Sol 
-
-    # 6단계
-    if len(Sol) > 15 :
-        answer = Sol[:15]
+    # 1단계 : 소문자로 치환
+    new_id = new_id.lower()
+    # 2단계 : 문자 제거
+    for C in new_id: 
+        if C == '-' or C == '.' or C == '_' or C.islower() or C.isdigit():
+            answer += C
+    # 3단계 : .. -> . 치환
+    while '..' in answer:
+        answer = answer.replace('..','.')
+    # 4단계 : 처음이나 끝의 . 제거
+    if answer[0] == '.' :
+        answer = answer[1:] if len(answer) > 1 else '.'
+    if answer[-1] == '.':
+        answer = answer[:-1] 
+    # 5단계 : 빈문자열이면 a 삽입
+    if answer == '' :
+        answer = 'a'
+    # 6단계 : 16자 이상이면 이후 제거 and  마지막 . 이면 삭제
+    if len(answer) > 15 :
+        answer = answer[:15]
         if answer[-1] == '.' :
             answer = answer[:-1]
-    else :
-        answer = Sol
-
-    # 7단계
+    # 7단계 : 두 자리 이하면 마지막 문자를 3이 될 때 까지 추가
     if len(answer) < 3 :
-        i = answer[-1]
-        while len(answer) < 3 :
-            answer += i
-    
+       i = answer[-1]
+       while len(answer) < 3 :
+           answer = answer + i
+
     return answer
+
+id = ".."
+print(solution(id))
